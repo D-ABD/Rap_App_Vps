@@ -1,0 +1,4 @@
+2025/04/05 16:45:02 NOTICE: Config file "/root/.config/rclone/rclone.conf" not found - using defaults
+2025/04/05 16:45:02 Failed to create file system for "gdrive:Backup_Rap_App": didn't find section in config file
+2025/04/05 16:45:54 NOTICE: Config file "/root/.config/rclone/rclone.conf" not found - using defaults
+2025/04/05 16:45:54 Failed to create file system for "gdrive:Backup_Rap_App": didn't find section in config file
