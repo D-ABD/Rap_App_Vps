@@ -1,0 +1,35 @@
+# Environnement virtuel
+env/
+
+# Fichiers Python compilés
+*.pyc
+__pycache__/
+
+# Fichiers/dossiers de configuration
+*.log
+*.pot
+*.mo
+
+# SQLite
+*.sqlite3
+
+# JetBrains / VSCode / autres IDEs
+.idea/
+.vscode/
+*.swp
+
+# Système macOS / Linux / Windows
+.DS_Store
+Thumbs.db
+
+# Fichiers media et static collectés
+/media/
+/staticfiles/
+
+# Fichiers de sauvegarde / temp
+*.bak
+*.tmp
+
+# Fichiers de secrets
+.env
+*.pem
