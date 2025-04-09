@@ -265,36 +265,38 @@ class FormationAdmin(admin.ModelAdmin):
     places_dispo_display.short_description = "Places disponibles"
     places_dispo_display.admin_order_field = 'places_disponibles'
     
-    def taux_saturation_display(self, obj):
-        """Affiche le taux de saturation avec une barre de progression interactive"""
-        try:
-            if hasattr(obj, 'taux_saturation'):
-                taux = float(obj.taux_saturation)
-            else:
-                taux = float(obj.get_taux_saturation())
-        except (TypeError, ValueError):
-            return format_html('<span style="color: #95a5a6;">N/A</span>')
-
-        if obj.prevus_crif + obj.prevus_mp == 0:
-            return format_html('<span style="color: #95a5a6;">N/A</span>')
-
-        taux = min(100, max(0, taux))  # Clamp entre 0 et 100
-
-        if taux < 70:
-            color = '#27ae60'  # Vert
-        elif taux < 95:
-            color = '#f39c12'  # Orange
+def taux_saturation_display(self, obj):
+    """Affiche le taux de saturation avec une barre de progression interactive"""
+    try:
+        if hasattr(obj, 'taux_saturation'):
+            taux = float(obj.taux_saturation)
         else:
-            color = '#e74c3c'  # Rouge
+            taux = float(obj.get_taux_saturation())
+    except (TypeError, ValueError):
+        return format_html('<span style="color: #95a5a6;">N/A</span>')
 
-        return format_html(
-            '<div class="progress" style="width:100px; height:10px; background-color:#ecf0f1; border-radius:5px;">'
-            '<div style="width:{}%; height:100%; background-color:{}; border-radius:5px;" '
-            'title="{}% de saturation"></div>'
-            '</div>'
-            '<span style="color: {};">{:.1f}%</span>',
-            taux, color, taux, color, taux
-        )
+    if obj.prevus_crif + obj.prevus_mp == 0:
+        return format_html('<span style="color: #95a5a6;">N/A</span>')
+
+    taux = min(100, max(0, taux))  # Clamp entre 0 et 100
+
+    if taux < 70:
+        color = '#27ae60'  # Vert
+    elif taux < 95:
+        color = '#f39c12'  # Orange
+    else:
+        color = '#e74c3c'  # Rouge
+
+    taux_str = "{:.1f}%".format(taux)  # ✅ Pré-formater ici
+
+    return format_html(
+        '<div class="progress" style="width:100px; height:10px; background-color:#ecf0f1; border-radius:5px;">'
+        '<div style="width:{}%; height:100%; background-color:{}; border-radius:5px;" '
+        'title="{}"></div>'
+        '</div>'
+        '<span style="color: {};">{}</span>',
+        taux, color, taux_str, color, taux_str
+    )
 
     taux_saturation_display.short_description = "Taux de saturation"
     taux_saturation_display.admin_order_field = 'taux_saturation'
